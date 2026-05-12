@@ -14,7 +14,7 @@ library(splines)
 #########################################################
 
 fit_mixed_model <- function(response, predictor) {
-  formula <- as.formula(paste(response, "~", predictor, "+ ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence"))
+  formula <- as.formula(paste(response, "~", predictor, "+ ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence + season"))
   model <- lme(formula, random = list(IDNUMBER1 = pdDiag(form = ~ 1)), correlation = corAR1(form = ~ time | IDNUMBER1), data = YOURDATA)
   return(model)
 }
