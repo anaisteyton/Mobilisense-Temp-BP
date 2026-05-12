@@ -22,7 +22,7 @@ library(ggpubr)
 #Examining nonlinear structure (ex. ns/ poly, df's, etc.) 
 results <- data.frame(Df = numeric(0), AIC = numeric(0))
 for(df_new in 2:10) {
-  formula_nl <- formula(paste("SBPbr ~ ns(five_min_temp, df =", df_new, ") + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence"))
+  formula_nl <- formula(paste("SBPbr ~ ns(five_min_temp, df =", df_new, ") + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence  + season"))
   model_ns_i <- lme(formula_nl, random = list(IDNUMBER1 = pdDiag(form = ~ 1)), 
                     correlation = corAR1(form = ~ time | IDNUMBER1), data = YOURDATA)
   aic_i <- AIC(model_ns_i)
@@ -31,7 +31,7 @@ for(df_new in 2:10) {
 }
 
 # Running model
-formula_nl <- formula("SBPbr ~ ns(five_min_temp, df = 4) + ns(time_trend, df = 7) + sex + age + education_level + employment_level+ income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence")
+formula_nl <- formula("SBPbr ~ ns(five_min_temp, df = 4) + ns(time_trend, df = 7) + sex + age + education_level + employment_level+ income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence + season")
 model_ns <- lme(formula_nl, random = list(IDNUMBER1 = pdDiag(form = ~ 1)), correlation = corAR1(form = ~ time | IDNUMBER1), data = YOURDATA)
 quantile1<-unname(quantile(YOURDATA[, "five_min_temp"], probs=0.01))
 quantile99<-unname(quantile(YOURDATA[, "five_min_temp"], probs=0.99))
@@ -57,7 +57,7 @@ ggsave("SAVE PNG LOCATION HERE.png")
 #Examining nonlinear structure (ex. ns/ poly, df's, etc.) 
 results <- data.frame(Df = numeric(0), AIC = numeric(0))
 for(df_new in 2:10) {
-  formula_nl <- formula(paste("DBPbr ~ ns(five_min_temp, df =", df_new, ") + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence"))
+  formula_nl <- formula(paste("DBPbr ~ ns(five_min_temp, df =", df_new, ") + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence + season"))
   model_ns_i <- lme(formula_nl, random = list(IDNUMBER1 = pdDiag(form = ~ 1)), correlation = corAR1(form = ~ time | IDNUMBER1), data = YOURDATA)
   aic_i <- AIC(model_ns_i)
   results <- rbind(results, data.frame(Df = df_new, AIC = aic_i))
@@ -65,7 +65,7 @@ for(df_new in 2:10) {
 }
 
 # Running model
-formula_nl <- formula("DBPbr ~ ns(five_min_temp, df = 2) + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence")
+formula_nl <- formula("DBPbr ~ ns(five_min_temp, df = 2) + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence + season")
 model_ns <- lme(formula_nl, random = list(IDNUMBER1 = pdDiag(form = ~ 1)), correlation = corAR1(form = ~ time | IDNUMBER1), data = YOURDATA)
 quantile1<-unname(quantile(YOURDATA[, "five_min_temp"], probs=0.01))
 quantile99<-unname(quantile(YOURDATA[, "five_min_temp"], probs=0.99))
@@ -93,7 +93,7 @@ ggsave("SAVE PNG LOCATION HERE.png")
 #Examining nonlinear structure (ex. ns/ poly, df's, etc.) 
 results <- data.frame(Df = numeric(0), AIC = numeric(0))
 for(df_new in 2:10) {
-  formula_nl <- formula(paste("SBPbr ~ ns(five_min_temp_sddir, df =", df_new, ") + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence"))
+  formula_nl <- formula(paste("SBPbr ~ ns(five_min_temp_sddir, df =", df_new, ")  + five_min_temp + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence + season"))
   model_ns_i <- lme(formula_nl, random = list(IDNUMBER1 = pdDiag(form = ~ 1)), 
                     correlation = corAR1(form = ~ time | IDNUMBER1), data = YOURDATA)
   aic_i <- AIC(model_ns_i)
@@ -102,7 +102,7 @@ for(df_new in 2:10) {
 }
 
 # Running model
-formula_nl <- formula("SBPbr ~ ns(five_min_temp_sddir, df = 3) + ns(time_trend, df = 7) + sex + age + education_level + employment_level+ income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence")
+formula_nl <- formula("SBPbr ~ ns(five_min_temp_sddir, df = 3) + five_min_temp + ns(time_trend, df = 7) + sex + age + education_level + employment_level+ income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence + season")
 model_ns <- lme(formula_nl, random = list(IDNUMBER1 = pdDiag(form = ~ 1)), correlation = corAR1(form = ~ time | IDNUMBER1), data = YOURDATA)
 quantile1<-unname(quantile(YOURDATA[, "five_min_temp_sddir"], probs=0.01))
 quantile99<-unname(quantile(YOURDATA[, "five_min_temp_sddir"], probs=0.99))
@@ -126,7 +126,7 @@ ggsave("SAVE PNG LOCATION HERE.png")
 #Examining nonlinear structure (ex. ns/ poly, df's, etc.) 
 results <- data.frame(Df = numeric(0), AIC = numeric(0))
 for(df_new in 2:10) {
-  formula_nl <- formula(paste("DBPbr ~ ns(five_min_temp_sddir, df =", df_new, ") + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence"))
+  formula_nl <- formula(paste("DBPbr ~ ns(five_min_temp_sddir, df =", df_new, ") + five_min_temp + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence + season"))
   model_ns_i <- lme(formula_nl, random = list(IDNUMBER1 = pdDiag(form = ~ 1)), correlation = corAR1(form = ~ time | IDNUMBER1), data = YOURDATA)
   aic_i <- AIC(model_ns_i)
   results <- rbind(results, data.frame(Df = df_new, AIC = aic_i))
@@ -134,7 +134,7 @@ for(df_new in 2:10) {
 }
 
 # Running model
-formula_nl <- formula("DBPbr ~ ns(five_min_temp_sddir, df = 3) + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence")
+formula_nl <- formula("DBPbr ~ ns(five_min_temp_sddir, df = 3) + five_min_temp + ns(time_trend, df = 7) + sex + age + education_level + employment_level + income_household_per_member + five_min_vm + Five_domicile + Five_motorized + Five_nonMotorized + weekend + wave + Residence + season")
 model_ns <- lme(formula_nl, random = list(IDNUMBER1 = pdDiag(form = ~ 1)), correlation = corAR1(form = ~ time | IDNUMBER1), data = YOURDATA)
 quantile1<-unname(quantile(YOURDATA[, "five_min_temp_sddir"], probs=0.01))
 quantile99<-unname(quantile(YOURDATA[, "five_min_temp_sddir"], probs=0.99))
